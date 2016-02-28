@@ -11,8 +11,7 @@ public:
                 auto val1Iter = find(nums.begin(), nums.end(), sorted.at(i));
                 decltype(val1Iter) val2beg = (key == sorted.at(i)) ? val1Iter + 1 : nums.begin();
                 auto val2Iter = find(val2beg, nums.end(), key);
-                vector<int> ret{val1Iter - nums.begin(), val2Iter - nums.begin()}; 
-                return ret;
+                return vector<int>{val1Iter - nums.begin(), val2Iter - nums.begin()};
             }
         }
     }
