@@ -5,18 +5,13 @@ public:
         sort(sorted.begin(), sorted.end());
         
         for (int i = 0; i < sorted.size() - 1; ++i) {
-            int toFind = target - sorted.at(i);
-
-            if (binary_search(sorted.begin() + i + 1, sorted.end() , toFind)) {
+            int key = target - sorted.at(i);
+            
+            if (binary_search(sorted.begin() + i + 1, sorted.end(), key)) {
                 auto val1Iter = find(nums.begin(), nums.end(), sorted.at(i));
-                decltype(val1Iter) val2Iter;
-                
-                if (toFind == sorted.at(i))
-                    val2Iter = find(val1Iter + 1, nums.end(), toFind);
-                else
-                    val2Iter = find(nums.begin(), nums.end(), toFind);
-
-                vector<int> ret{static_cast<int>(val1Iter - nums.begin()), static_cast<int>(val2Iter - nums.begin())}; 
+                decltype(val1Iter) val2beg = (key == sorted.at(i)) ? val1Iter + 1 : nums.begin();
+                auto val2Iter = find(val2beg, nums.end(), key);
+                vector<int> ret{val1Iter - nums.begin(), val2Iter - nums.begin()}; 
                 return ret;
             }
         }
