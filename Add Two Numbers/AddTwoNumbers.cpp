@@ -29,7 +29,7 @@ public:
 		int carry = 0;
 
 		while (rl1 && rl2) {
-			int digit = rl1->next->val + rl2->next->val + carry;
+			int digit = rl1->val + rl2->val + carry;
 
 			if (digit > 10) {
 				digit -= 10;
@@ -38,11 +38,12 @@ public:
 				carry = 0;
 			}
 
-			cout << digit << endl;
-
 			ListNode cur = ListNode(digit);
 			temp = &cur;
 			temp = temp->next;
+
+			cout << rl1->val << " " << rl2->val << endl;
+
 			rl1 = rl1->next;
 			rl2 = rl2->next;
 		}
