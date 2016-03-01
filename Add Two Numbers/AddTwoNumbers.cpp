@@ -9,46 +9,15 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-    	ListNode *head = 0, *iter;
+    	ListNode prehead(0), *iter = &prehead;
     	int carry = 0;
 
-    	for (;l1 && l2; l1 = l1->next, l2 = l2->next) {
-    		int digit = l1->val + l2->val + carry;
-
-    		if (digit >= 10) {
-    			digit -= 10;
-    			carry = 1;
-    		} else {
-    			carry = 0;
-    		}
-
-    		if (head == 0) {
-    			head = new ListNode(digit);
-    			iter = head;
-    		} else {
-    			iter->next = new ListNode(digit);
-    			iter = iter->next;
-    		}
+    	for (;l1 || l2 || carry; l1 = (l1 ? l1->next : 0), l2 = (l2 ? l2->next : 0), iter = iter->next) {
+    		int digit = (l1 ? l1->val : 0) + (l2 ? l2->val : 0) + carry;
+    		carry = digit >= 10 ? 1 : 0;
+			iter->next = new ListNode(digit % 10);
     	}
 
-    	ListNode *final = l1 ? l1 : l2;
-
-    	for (;final; final = final->next, iter = iter->next) {
-     		int digit = final->val + carry;
-
-    		if (digit >= 10) {
-    			digit -= 10;
-    			carry = 1;
-    		} else {
-    			carry = 0;
-    		}
-
-			iter->next = new ListNode(digit);
-    	}
-
-    	if (carry)
-    		iter->next = new ListNode(carry);
-
-    	return head;
+    	return prehead.next;
     }
 };
