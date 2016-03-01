@@ -19,14 +19,13 @@ public:
 	}
 
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-		ListNode *rl1, *rl2, *ret, *temp = ret;
+		ListNode *rl1, *rl2, *ret = 0, *iter;
+		int carry = 0;
 
 		reverse(l1, rl1); // l1 is new head of reversed list
 		l1->next = NULL; // setting the end of linked list (former head) to NULL
 		reverse(l2, rl2);
 		l2->next = NULL;
-
-		int carry = 0;
 
 		while (rl1 && rl2) {
 			int digit = rl1->val + rl2->val + carry;
@@ -38,11 +37,14 @@ public:
 				carry = 0;
 			}
 
-			ListNode cur = ListNode(digit);
-			temp = &cur;
-			temp = temp->next;
-
-			cout << rl1->val << " " << rl2->val << endl;
+			if (ret == 0) {
+				iter = new ListNode(digit);
+				ret = iter;
+				cout << "got here" << ret << endl;
+			} else {
+				iter->next = new ListNode(digit);
+				iter = iter->next;
+			}
 
 			rl1 = rl1->next;
 			rl2 = rl2->next;
