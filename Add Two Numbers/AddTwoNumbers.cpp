@@ -8,28 +8,23 @@
  */
 class Solution {
 public:
-	ListNode* reverse(ListNode* nodePtr) {
-		if (nodePtr->next == NULL)
-			return nodePtr;
+	void reverse(ListNode* nodePtr, ListNode* newHead&) {
+		if (nodePtr->next == NULL) {
+			newHead = nodePtr;
+			return;
+		}
 
 		reverse(nodePtr->next);
 		nodePtr->next->next = nodePtr;
 	}
 
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-		ListNode* temp = l1;
+		ListNode* rl1, rl2;
 
-		while (l1) {
-			cout << l1->val << endl;
-			l1 = l1->next;        
-		}
-
-		l1 = reverse(temp);
-
-		while (l1) {
-			cout << l1->val << endl;
-			l1 = l1->next;        
-		}
+		reverse(l1, rl1); // l1 is new head of reversed list
+		l1->next = NULL; //setting the end of linked list to NULL
+		reverse(l2, rl2);
+		l2->next = NULL;
 
 		return 0;
     }
