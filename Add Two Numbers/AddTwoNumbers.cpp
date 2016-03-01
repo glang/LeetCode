@@ -8,48 +8,47 @@
  */
 class Solution {
 public:
-	void reverse(ListNode* nodePtr, ListNode*& newHead) {
-		if (nodePtr->next == NULL) {
-			newHead = nodePtr;
-			return;
-		}
-
-		reverse(nodePtr->next, newHead);
-		nodePtr->next->next = nodePtr;
-	}
-
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-		ListNode *rl1, *rl2, *ret = 0, *iter;
-		int carry = 0;
+    	ListNode *head = 0, *iter;
+    	int carry = 0;
 
-		reverse(l1, rl1); // l1 is new head of reversed list
-		l1->next = NULL; // setting the end of linked list (former head) to NULL
-		reverse(l2, rl2);
-		l2->next = NULL;
+    	for (;l1 && l2; l1 = l1->next, l2 = l2->next) {
+    		int digit = l1->val + l2->val + carry;
 
-		while (rl1 && rl2) {
-			int digit = rl1->val + rl2->val + carry;
+    		if (digit >= 10) {
+    			digit -= 10;
+    			carry = 1;
+    		} else {
+    			carry = 0;
+    		}
 
-			if (digit > 10) {
-				digit -= 10;
-				carry = 1;
-			} else {
-				carry = 0;
-			}
+    		if (head == 0) {
+    			head = new ListNode(digit);
+    			iter = head;
+    		} else {
+    			iter->next = new ListNode(digit);
+    			iter = iter->next;
+    		}
+    	}
 
-			if (ret == 0) {
-				iter = new ListNode(digit);
-				ret = iter;
-				cout << "got here" << ret << endl;
-			} else {
-				iter->next = new ListNode(digit);
-				iter = iter->next;
-			}
+    	ListNode *final = l1 ? l1 : l2;
 
-			rl1 = rl1->next;
-			rl2 = rl2->next;
-		}
+    	for (;final; final = final->next, iter = iter->next) {
+     		int digit = final->val + carry;
 
-		return ret;
+    		if (digit >= 10) {
+    			digit -= 10;
+    			carry = 1;
+    		} else {
+    			carry = 0;
+    		}
+
+			iter->next = new ListNode(digit);
+    	}
+
+    	if (carry)
+    		iter->next = new ListNode(carry);
+
+    	return head;
     }
 };
