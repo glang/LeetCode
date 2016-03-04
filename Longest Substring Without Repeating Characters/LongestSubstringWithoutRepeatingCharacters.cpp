@@ -9,16 +9,14 @@ public:
             	++cur;
             	track.emplace(s.at(i), i);
             } else {
-            	if (cur > max)
-            		max = cur;
             	int distance = i - track.at(s.at(i));
             	cur = distance <= cur ? distance : cur + 1;
             	track[s.at(i)] = i;
             }
-        }
 
-    	if (cur > max)
-    		max = cur;
+	    	if (cur > max)
+	    		max = cur;
+        }
 
         return max;
     }
