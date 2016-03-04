@@ -5,9 +5,8 @@ public:
         map<char, int> track;
         
         for (int i = 0; i != s.size(); ++i) {
-        	auto iter = track.find(s.at(i));
-            if (iter == track.end()) {
-            	cur++;
+            if (track.count(s.at(i)) == 0) {
+            	++cur;
             	track.emplace(s.at(i), i);
             } else {
             	if (cur > max)
