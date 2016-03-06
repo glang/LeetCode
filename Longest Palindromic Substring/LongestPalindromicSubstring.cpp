@@ -10,21 +10,15 @@ public:
 	}
 
     string longestPalindrome(string s) {
-    	string longest = "";
-    	int len = 0;
-
-        for (int i = 0; i != s.size(); ++i) {
-        	for (int j = s.size() - i; j >= 0; --j) {
-        		string sub = s.substr(i, j);
-
-        		if (isPal(sub) && j > len) {
-        			longest = sub;
-        			len = j;
-        			break;
+        for (int i = s.size(); i >= 0; --i) {
+        	for (int j = 0; j <= s.size() - i; ++j) {
+        		string sub = s.substr(j, i);
+        		if (isPal(sub)) {
+        			return sub;
         		}
         	}
         }
-
-        return longest;
     }
 };
+
+// "miycvxmqggnmmcwlmizfojwrurwhwygwfykyefxbgveixykdebenzitqnciigfjgrzzbtgeazyrbiirmejhdwcgjzwqolrturjlqpsgunuqerqjevbheblmbvgxyedxshswsokbhzapfuojgyfhctlaifrisgzqlczageirnukgnmnbwogknyyuynwsuwbumdmoqwxprykmazghcpmkdcjduepjmjdxrhvixxbfvhybjdpvwjbarmbqypsylgtzyuiqkexgvirzylydrhrmuwpmfkvqllqvekyojoacvyrzjevaupypfrdguhukzuqojolvycgpjaendfetkgtojepelhcltorueawwjpltehbbjrvznxhahtuaeuairvuklctuhcyzomwrrznrcqmovanxmiyilefybkbveesrxkmqrqkowyrimuejqtikcjfhizsmumajbqglxrvevexnleflocxoqgoyrzgqflwiknntdcykuvdcpzlakljidclhkllftxpinpvbngtexngdtntunzgahuvfnqjedcafzouopiixw"
