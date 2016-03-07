@@ -1,23 +1,27 @@
 class Solution {
 public:
-	bool isPal(string &s) {
-		for (int i = 0; i != s.size()/2; ++i) {
-			if (s.at(i) != s.at(s.size() - i - 1))
-				return false;
-		}
-
-		return true;
-	}
-
     string longestPalindrome(string s) {
-        for (int i = s.size(); i >= 0; --i) {
-        	for (int j = 0; j <= s.size() - i; ++j) {
-        		string sub = s.substr(j, i);
-        		if (isPal(sub)) {
-        			return sub;
-        		}
-        	}
+    	int maxLen = 0, loc = 0;
+
+        for (int i = 0; i < s.size(); ++i) {
+        	for (int j = 0; i - j >= 0 && i + j < s.size() && s.at(i - j) == s.at(i + j); ++j) {
+	        	if (maxLen < j * 2 + 1) {
+	        		maxLen = j * 2 + 1;
+	        		loc = i - j;
+	        	}
+			}
         }
+
+        for (int i = 0; i < s.size(); ++i) {
+        	for (int j = 1; i - j + 1 >= 0 && i + j < s.size() && s.at(i - j + 1) == s.at(i + j); ++j) {
+	        	if (maxLen < j * 2) {
+	        		maxLen = j * 2;
+	        		loc = i - j + 1;
+	        	}
+			}
+        }
+
+        return s.substr(loc, maxLen);
     }
 };
 
