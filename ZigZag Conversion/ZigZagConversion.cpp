@@ -11,13 +11,15 @@ public:
         int cycleLen = numRows * 2 - 2;
         string ret = "";
 
+        if (numRows == 1)
+        	return s;
+
         for (int i = 0; i < s.size(); ++i) {
         	int spot = i % cycleLen;
-        	cout << "spot: " << spot << endl;
         	if (spot < numRows)
         		vecs.at(spot).push_back(s.at(i));
         	else
-        		vecs.at(numRows - spot % numRows - 1).push_back(s.at(i));
+        		vecs.at(numRows - spot % numRows - 2).push_back(s.at(i));
         }
 
         for (auto &x : vecs)
@@ -29,14 +31,14 @@ public:
 };
 
 int main() {
-	cout << Solution::convert("PAYPALISHIRING", 4) << endl;
+	cout << Solution::convert("A", 1) << endl;
 }
 
 /*
 
-a     g
-b   f h
-c e   i
-d
+p     i     n
+a   l s   i g
+y a   h r
+p     i
 
 */
