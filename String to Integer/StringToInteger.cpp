@@ -16,9 +16,9 @@ public:
   
 		if (ret == "") return 0;
 
-		if (ret.at(0) == '-' && ret.compare("-9223372036854775807") > 1) return INT_MIN;
-		else if (ret.at(0) == '+' && ret.compare("+9223372036854775807") > 1) return INT_MAX;
-		else if (ret.compare("9223372036854775807") > 1) return INT_MAX;
+		if (ret.at(0) == '-' && (ret.size() > 20 || ret.compare("-9223372036854775807") > 1)) return INT_MIN;
+		else if (ret.at(0) == '+' && (ret.size() > 20 || ret.compare("+9223372036854775807") > 1)) return INT_MAX;
+		else if (ret.size() > 19 || ret.compare("9223372036854775807") > 1) return INT_MAX;
 		
 		long long l = stoll(ret);
 
