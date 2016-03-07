@@ -7,7 +7,7 @@ using namespace std;
 class Solution {
 public:
     static string convert(string s, int numRows) {
-    	vector<vector<char>> vecs(numRows);
+    	vector<string> vecs(numRows);
         int cycleLen = numRows * 2 - 2;
         string ret = "";
 
@@ -23,8 +23,7 @@ public:
         }
 
         for (auto &x : vecs)
-        	for (auto &y : x)
-        		ret += y;
+    		ret += x;
 
         return ret;
     }
