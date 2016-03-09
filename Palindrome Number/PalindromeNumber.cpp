@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool isPalindrome(int x) {
+    static bool isPalindrome(int x) {
         if (x < 0)
         	return false;
 
@@ -12,24 +12,9 @@ public:
      	}
 
      	for (int i = 0; i < digits / 2; ++i) {
-     		
-     	}
+     		if (x / (int) pow(10, i) % 10 != x / (int) pow(10, digits - i - 1) % 10)
+                return false;
 
     	return true;   
     }
 };
-
-/*
-666
-569
-1001
-
-101
-50.5
-
-22
-11
-5.5
-2.25
-
-*/
