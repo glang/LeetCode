@@ -6,15 +6,18 @@ using namespace std;
 class Solution {
 public:
    static bool isMatch(string s, string p) {
-      char sidx = 0, pidx = 0;
+      int sidx = 0, pidx = 0;
 
-      if (p.at(pidx) == '.' || 
-         (((pidx + 1 < p.size() && p.at(pidx + 1) != '*')
-          || pidx == p.size() - 1) && s.at(sidx) == p.at(pidx))) {
-         sidx++;
-         pidx++;
-      } else {
-         return false;
+      for (int i = 0; i < p.size(); ++i) {
+         if (p.at(pidx) == '.' || 
+            (((pidx + 1 < p.size() && p.at(pidx + 1) != '*')
+             || pidx == p.size() - 1) && s.at(sidx) == p.at(pidx))) {
+            cout << "s: " << sidx << ", p: " << pidx << endl;
+            sidx++;
+            pidx++;
+         } else {
+            return false;
+         }
       }
 
       return true;
@@ -22,7 +25,7 @@ public:
 };
 
 int main() {
-   if (Solution::isMatch("test", "tesg")) {
+   if (Solution::isMatch("test", "test")) {
       cout << "match" << endl;
    } else {
       cout << "not match" << endl;
