@@ -8,24 +8,29 @@ public:
    static bool isMatch(string s, string p) {
       int sidx = 0, pidx = 0;
 
-      for (int i = 0; i < p.size(); ++i) {
-         if (p.at(pidx) == '.' || 
-            (((pidx + 1 < p.size() && p.at(pidx + 1) != '*')
-             || pidx == p.size() - 1) && s.at(sidx) == p.at(pidx))) {
-            cout << "s: " << sidx << ", p: " << pidx << endl;
+      while (sidx < s.size() && pidx < p.size()) {
+         if (p.at(pidx) == '.' || s.at(sidx) == p.at(pidx)) {
             sidx++;
             pidx++;
-         } else {
+         } 
+         else if (p.at(pidx) == '*') {
+            if (p.at(pidx - 1) == '.') return true;
+            while (s.at(sidx) == p.at(pidx - 1)) {
+               sidx++;
+            }
+            pidx++;
+         }
+         else if (pidx == p.size() || (pidx < p.size() && p.at(pidx + 1) != '*')) {
             return false;
          }
       }
 
-      return true;
+      return sidx == s.size() && pidx == p.size();
    }
 };
 
 int main() {
-   if (Solution::isMatch("test", "test")) {
+   if (Solution::isMatch("test", "tesg")) {
       cout << "match" << endl;
    } else {
       cout << "not match" << endl;
@@ -33,3 +38,5 @@ int main() {
 
    return 0;
 }
+
+//            cout << "s: " << sidx << ", p: " << pidx << endl;
