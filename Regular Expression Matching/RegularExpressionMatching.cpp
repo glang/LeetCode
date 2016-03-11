@@ -15,13 +15,16 @@ public:
          } 
          else if (p.at(pidx) == '*') {
             if (p.at(pidx - 1) == '.') return true;
-            while (s.at(sidx) == p.at(pidx - 1)) {
+            while (sidx < s.size() && s.at(sidx) == p.at(pidx - 1)) {
                sidx++;
             }
             pidx++;
          }
-         else if (pidx == p.size() || (pidx < p.size() && p.at(pidx + 1) != '*')) {
+         else if (pidx == p.size() - 1 || (pidx < p.size() - 1 && p.at(pidx + 1) != '*')) {
             return false;
+         }
+         else {
+            pidx++;
          }
       }
 
@@ -30,7 +33,7 @@ public:
 };
 
 int main() {
-   if (Solution::isMatch("test", "tesg")) {
+   if (Solution::isMatch("aa", "a*")) {
       cout << "match" << endl;
    } else {
       cout << "not match" << endl;
