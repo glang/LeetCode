@@ -7,6 +7,7 @@ class Solution {
 public:
    static bool isMatch(string s, string p) {
       int sidx = 0, pidx = 0;
+      char track = '*';
 
       while (sidx < s.size() && pidx < p.size()) {
          if (p.at(pidx) == '.' || s.at(sidx) == p.at(pidx)) {
@@ -26,9 +27,14 @@ public:
                   pidx++;                           
                }
             }
+            if (track == '*') 
+               track = prev;
+            int preSidx = sidx;
             while (sidx < s.size() && s.at(sidx) == prev)
                sidx++;
-            while (pidx < p.size() - 1 && prev == p.at(pidx + 1))
+            if (preSidx != sidx)
+               track = prev;
+            while (pidx < p.size() - 1 && track == p.at(pidx + 1))
                pidx++;
 
             pidx++;
@@ -44,7 +50,7 @@ public:
 };
 
 int main() {
-   if (Solution::isMatch("aaaa", "a*aa")) {
+   if (Solution::isMatch("aaa", "ab*a*c*a")) {
       cout << "match" << endl;
    } else {
       cout << "not match" << endl;
