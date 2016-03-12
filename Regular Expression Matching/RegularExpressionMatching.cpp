@@ -14,18 +14,29 @@ public:
             pidx++;
          } 
          else if (p.at(pidx) == '*') {
-            if (p.at(pidx - 1) == '.') return true;
-            while (sidx < s.size() && s.at(sidx) == p.at(pidx - 1)) {
-               sidx++;
+            char prev = p.at(pidx - 1);
+            if (prev == '.') {
+               if (pidx == p.size() - 1)
+                  return true;
+               else {
+                  while (sidx < s.size() && s.at(sidx) != p.at(pidx + 1))
+                     sidx++;
+                  if (sidx == s.size() && p.at(pidx + 1) != '.') 
+                     return false;   
+                  pidx++;                           
+               }
             }
+            while (sidx < s.size() && s.at(sidx) == prev)
+               sidx++;
+            while (pidx < p.size() - 1 && prev == p.at(pidx + 1))
+               pidx++;
+
             pidx++;
          }
-         else if (pidx == p.size() - 1 || (pidx < p.size() - 1 && p.at(pidx + 1) != '*')) {
+         else if (pidx == p.size() - 1 || (pidx < p.size() - 1 && p.at(pidx + 1) != '*'))
             return false;
-         }
-         else {
+         else 
             pidx++;
-         }
       }
 
       return sidx == s.size() && pidx == p.size();
@@ -33,7 +44,7 @@ public:
 };
 
 int main() {
-   if (Solution::isMatch("aa", "a*")) {
+   if (Solution::isMatch("aaaa", "a*aa")) {
       cout << "match" << endl;
    } else {
       cout << "not match" << endl;
@@ -41,3 +52,6 @@ int main() {
 
    return 0;
 }
+
+//.*a
+//.*a*
