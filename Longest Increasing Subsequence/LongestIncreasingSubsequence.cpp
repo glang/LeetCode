@@ -1,13 +1,15 @@
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
-        vector<int> res;
-        for(int i=0; i<nums.size(); i++) {
-            auto it = std::lower_bound(res.begin(), res.end(), nums[i]);
-            if(it==res.end()) res.push_back(nums[i]);
-            else *it = nums[i];
+        vector<int> ends;
+
+        for (int i = 0; i < nums.size(); ++i) {
+            auto iter = std::lower_bound(ends.begin(), ends.end(), nums.at(i));
+            if (iter == ends.end()) ends.push_back(nums.at(i));
+            else *iter = nums.at(i);
         }
-        return res.size();
+
+        return ends.size();
     }
 };
 
@@ -22,7 +24,7 @@ public:
 2,3,7
 2,3,7,200
 2,3,7,18
-2,3,7,28,101
-2,3,7,28,101,102
-2,3,7,28,101,102, 103
+2,3,7,18,101
+2,3,7,18,101,102
+2,3,7,18,101,102, 103
 */
