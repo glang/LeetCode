@@ -1,11 +1,11 @@
 class Solution {
 public:	
-    int computeArea(int min_x1, int min_y1, int max_x1, int max_y1, int min_x2, int min_y2, int max_x2, int max_y2) {
+    int computeArea(int xmin1, int ymin1, int xmax1, int ymax1, int xmin2, int ymin2, int xmax2, int ymax2) {
     	int res = 0;
     	int overlapWidth = 0, overlapHeight = 0;
 
     	//check if no overlap
-    	if (max_x1 <= min_x2 || max_x2 <= min_x1 || max_y1 <= min_y2 || max_y2 <= min_y1) {
+    	if (xmax1 <= xmin2 || xmax2 <= xmin1 || ymax1 <= ymin2 || ymax2 <= ymin1) {
     		return 0;
     	}
 
