@@ -1,12 +1,11 @@
 class Solution {
 public:	
     int computeArea(int xmin1, int ymin1, int xmax1, int ymax1, int xmin2, int ymin2, int xmax2, int ymax2) {
-    	int res = 0;
     	int overlapWidth = 0, overlapHeight = 0;
 
     	//check if no overlap
     	if (xmax1 <= xmin2 || xmax2 <= xmin1 || ymax1 <= ymin2 || ymax2 <= ymin1) {
-    		return 0;
+    		return (xmax1 - xmin1) * (ymax1 - ymin1) + (xmax2 - xmin2) * (ymax2 - ymin2);
     	}
 
     	//find width of overlap
@@ -39,7 +38,7 @@ public:
             }            
         }
 
-        return overlapWidth * overlapHeight;
+        return (xmax1 - xmin1) * (ymax1 - ymin1) + (xmax2 - xmin2) * (ymax2 - ymin2) - overlapWidth * overlapHeight;
     }
 };
 
