@@ -16,7 +16,30 @@ public:
     		} else {
     			overlapWidth = xmax2 - xmin2;
     		}
-    	}
+    	} else {
+            if (xmax1 >= xmax2) {
+                overlapWidth = xmax2 - xmin1;
+            } else {
+                overlapWidth = xmax1 - xmin1;
+            }            
+        }
+  
+        //find height of overlap
+        if (ymin2 >= ymin1) {
+            if (ymax2 >= ymax1) {
+                overlapHeight = ymax1 - ymin2;
+            } else {
+                overlapHeight = ymax2 - ymin2;
+            }
+        } else {
+            if (ymax1 >= ymax2) {
+                overlapHeight = ymax2 - ymin1;
+            } else {
+                overlapHeight = ymax1 - ymin1;
+            }            
+        }
+
+        return overlapWidth * overlapHeight;
     }
 };
 
