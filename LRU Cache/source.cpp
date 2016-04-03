@@ -14,14 +14,17 @@ public:
         if (cache.find(key) == cache.end()) {
         	return -1;
         } else {
-        	int temp = find(order.begin(), order.end(), key);
+        	auto iter = find(order.begin(), order.end(), key);
+        	int val = *iter;
+        	order.erase(iter);
+        	order.push_front(val);
 
         	return cache[key];
         }
     }
     
     void set(int key, int value) {
-    	if (cache.size() >= maxSize) {
+    	if (cache.size() == maxSize) {
     		cache.erase(cache.find(order.back()));
     		order.pop_back();
     	}
