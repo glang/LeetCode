@@ -13,8 +13,7 @@ public:
         if (cache.find(key) == cache.end()) {
         	return -1;
         } else {
-        	cache[key][1]++;
-        	return cache[key][0]);
+        	return cache[key];
         }
     }
     
@@ -25,7 +24,8 @@ public:
 
     	}
     }
+
 private:
 	int maxSize;
-	map<int, vector<int>> cache;
+	map<int, int> cache;
 };
