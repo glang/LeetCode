@@ -15,15 +15,14 @@ public:
         if (cache.find(key) == cache.end()) {
         	return -1;
         } else {
-			order.erase(std::find(order.begin(), order.end(), key));
-			order.push_front(key);
+			order.splice(order.begin(), order, std::find(order.begin(), order.end(), key));
         	return cache[key];
         }
     }
     
     void set(int key, int value) {
 		if (cache.size() == maxSize) {
-			cache.erase(cache.find(order.back()));
+			cache.erase(order.back());
 			order.pop_back();
 		}
 
@@ -32,10 +31,10 @@ public:
         auto iter = std::find(order.begin(), order.end(), key);		
 	
 		if (iter != order.end()) {
-			order.erase(iter);
+			order.splice(order.begin(), order, iter);
+		} else {
+			order.push_front(key);
 		}
-		
-		order.push_front(key);
     }
 
 private:
