@@ -15,11 +15,8 @@ public:
         if (cache.find(key) == cache.end()) {
         	return -1;
         } else {
-        	auto iter = std::find(order.begin(), order.end(), key);
-        	int val = *iter;
-        	order.erase(iter);
-        	order.push_front(val);
-
+			order.erase(std::find(order.begin(), order.end(), key));
+			order.push_front(key);
         	return cache[key];
         }
     }
@@ -31,12 +28,14 @@ public:
 		}
 
 		cache[key] = value;
-		
-		if (std::find(order.begin(), order.end(), key) != order.end()) {
-			get(key);
-		} else {
-			order.push_front(key);
+
+        auto iter = std::find(order.begin(), order.end(), key);		
+	
+		if (iter != order.end()) {
+			order.erase(iter);
 		}
+		
+		order.push_front(key);
     }
 
 private:
