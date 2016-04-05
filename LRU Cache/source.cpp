@@ -14,9 +14,8 @@ public:
         if (cache.find(key) == cache.end()) {
         	return -1;
         } else {
-        	ValIter vi = cache[key];
-			order.splice(order.begin(), order, vi.iter);
-        	return vi.val;
+			order.splice(order.begin(), order, cache[key].iter);
+        	return cache[key].val;
         }
     }
     
@@ -26,11 +25,9 @@ public:
 			order.pop_back();
 		}
 
-        auto iter = std::find(order.begin(), order.end(), key);		
-	
-		if (iter != order.end()) {
+		if (cache.find(key) != cache.end()) {
 			cache[key].val = value;
-			order.splice(order.begin(), order, iter);
+			order.splice(order.begin(), order, cache[key].iter);
 		} else {
 			order.push_front(key);
 			cache[key] = ValIter(value, order.begin());
