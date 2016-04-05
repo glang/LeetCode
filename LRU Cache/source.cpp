@@ -39,6 +39,14 @@ public:
 
 private:
 	int maxSize;
-	map<int, int> cache;
+	map<int, KeyIter> cache;
 	list<int> order;
+
+	struct KeyIter {
+		int key;
+		list<int>::iterator iter;
+
+		KeyIter(int k, list<int>::iterator i) : key(k), iter(i) {
+		}
+	};
 };
