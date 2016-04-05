@@ -1,4 +1,4 @@
-#include <map>
+#include <unordered_map>
 #include <list>
 #include <algorithm>
 #include <iostream>
@@ -15,8 +15,9 @@ public:
         if (cache.find(key) == cache.end()) {
         	return -1;
         } else {
-			order.splice(order.begin(), order, std::find(order.begin(), order.end(), key));
-        	return cache[key];
+        	ValIter vi = cache[key];
+			order.splice(order.begin(), order, vi.iter);
+        	return vi.val;
         }
     }
     
@@ -26,27 +27,28 @@ public:
 			order.pop_back();
 		}
 
-		cache[key] = value;
-
         auto iter = std::find(order.begin(), order.end(), key);		
 	
 		if (iter != order.end()) {
+			cache[key].val = value;
 			order.splice(order.begin(), order, iter);
 		} else {
 			order.push_front(key);
+			cache[key] = ValIter(value, order.begin());
 		}
     }
 
 private:
-	int maxSize;
-	map<int, KeyIter> cache;
-	list<int> order;
-
-	struct KeyIter {
-		int key;
+	struct ValIter {
+		int val;
 		list<int>::iterator iter;
 
-		KeyIter(int k, list<int>::iterator i) : key(k), iter(i) {
+		ValIter(int v, list<int>::iterator i) : val(v), iter(i) {
 		}
 	};
+
+	int maxSize;
+	unordered_map<int, ValIter> cache;
+	list<int> order;
+
 };
