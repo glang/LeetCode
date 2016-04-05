@@ -7,8 +7,7 @@ using namespace std;
 
 class LRUCache{
 public:
-    LRUCache(int capacity) {
-    	maxSize = capacity;
+    LRUCache(int capacity) : maxSize(capacity) {
     }
     
     int get(int key) {
@@ -45,10 +44,12 @@ private:
 
 		ValIter(int v, list<int>::iterator i) : val(v), iter(i) {
 		}
+
+		ValIter() {
+		}
 	};
 
 	int maxSize;
 	unordered_map<int, ValIter> cache;
 	list<int> order;
-
 };
