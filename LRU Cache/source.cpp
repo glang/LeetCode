@@ -20,15 +20,15 @@ public:
     }
     
     void set(int key, int value) {
-		if (cache.size() == maxSize) {
-			cache.erase(order.back());
-			order.pop_back();
-		}
-
 		if (cache.find(key) != cache.end()) {
 			cache[key].val = value;
 			order.splice(order.begin(), order, cache[key].iter);
 		} else {
+			if (cache.size() == maxSize) {
+				cache.erase(order.back());
+				order.pop_back();
+			}
+			
 			order.push_front(key);
 			cache[key] = ValIter(value, order.begin());
 		}
