@@ -1,3 +1,8 @@
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
 bool isUnique(string input) {
 	sort(input.begin(), input.end());
 
@@ -9,3 +14,5 @@ bool isUnique(string input) {
 
 	return true;
 }
+
+int main() {}
