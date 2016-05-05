@@ -24,10 +24,25 @@ int kthToLast2(int k, shared_ptr<Node> head) {
 		if (knodes.size()) {
 			knodes.pop_front();
 		}
-		
+
 		knodes.push_back(iter->val);
 		iter = iter->next;
 	}
 
 	return knodes.front();
+}
+
+//recursive solution
+int kthToLast3(int k, shared_ptr<Node> node) {
+	if (!node) {
+		return 0;
+	}
+
+	int reverseCount = kthToLast3(k, node->next);
+
+	if (reverseCount == k) {
+		cout << node->val << endl;
+	}
+
+	return reverseCount + 1;
 }
