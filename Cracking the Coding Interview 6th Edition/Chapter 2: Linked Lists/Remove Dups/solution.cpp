@@ -1,6 +1,6 @@
 void removeDups(shared_ptr<Node> head) {
-	unordered_set<int> unique;
-
+	//if head is null then return
+	unordered_set<int> unique({head->val});
 	shared_ptr<Node> iter = head;
 	
 	while (iter->next) {
