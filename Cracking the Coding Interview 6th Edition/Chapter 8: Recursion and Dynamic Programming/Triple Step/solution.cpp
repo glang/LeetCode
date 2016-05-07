@@ -24,31 +24,11 @@ int tripleStepMemo(int n, vector<int>& cache) {
 		return 0;
 	}
 
-	if (n - 1 >= 0) {
-		if (cache[n - 1] == -1) {
-			cache[n - 1] = tripleStepMemo(n - 1, cache);
-		}
-
-		ret += cache[n - 1];
+	if (cache[n] != -1) {
+		return cache[n];
+	} else {
+		cache[n] = tripleStepMemo(n - 1, cache) + tripleStepMemo(n - 2, cache) + tripleStepMemo(n - 3, cache);
 	}
-
-	if (n - 2 >= 0) {
-		if (cache[n - 2] == -1) {
-			cache[n - 2] = tripleStepMemo(n - 2, cache);
-		}
-		
-		ret += cache[n - 2];
-	}
-
-	if (n - 3 >= 0) {
-		if (cache[n - 3] == -1) {
-			cache[n - 3] = tripleStepMemo(n - 3, cache);
-		}
-		
-		ret += cache[n - 3];
-	}
-
-	return ret;
 }
 
 int main() {
