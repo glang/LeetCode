@@ -28,6 +28,7 @@ int tripleStepMemo(int n, vector<int>& cache) {
 		return cache[n];
 	} else {
 		cache[n] = tripleStepMemo(n - 1, cache) + tripleStepMemo(n - 2, cache) + tripleStepMemo(n - 3, cache);
+		return cache[n];
 	}
 }
 
