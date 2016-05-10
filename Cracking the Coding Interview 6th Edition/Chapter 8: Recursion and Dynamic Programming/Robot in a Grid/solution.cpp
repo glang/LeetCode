@@ -7,13 +7,13 @@ using namespace std;
 //goal is to get to bottom right corner with off limit cells that can't be stepped on
 
 /*
-0 0 0 1 
+0 0 0 1
 0 1 0 1
 0 1 0 1
 0 0 0 0
 */
 
-void traverse(int cur_r, int cur_c, vector<pair<int, int>> path, int** grid, int max_r, int max_c) {
+void traverse(int cur_r, int cur_c, vector<pair<int, int>> path, int grid[4][4], int max_r, int max_c) {
 	if (cur_r == max_r - 1 && cur_c == max_c - 1) {
 		for (auto& item : path) {
 			cout << item.first << " " << item.second << endl;
@@ -36,5 +36,12 @@ void traverse(int cur_r, int cur_c, vector<pair<int, int>> path, int** grid, int
 }
 
 int main() {
-	
+	int grid[4][4] = {
+		{0, 0, 0, 1},
+		{0, 1, 0, 1},
+		{0, 1, 0, 1},
+		{0, 0, 0, 0}
+	};
+
+	traverse(0, 0, vector<pair<int, int>>{pair<int, int>(0, 0)}, grid, 4, 4);
 }
