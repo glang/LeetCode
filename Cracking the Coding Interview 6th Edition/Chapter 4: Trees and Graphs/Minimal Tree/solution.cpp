@@ -1,7 +1,15 @@
 void minimalTree(const vector<int>& list, int low, int high, shared_ptr<Node> node) {
-	int midIdx = low + (high - low) / 2;
-	auto newNode = make_shared<Node>(list.at(midIdx));
+	if (high < low || high > list.size() - 1 || low < 0) {
+      return;
+   }
 
+   int mid = low + (high - low) / 2;
+	node->data = list.at(mid);
+   node->left = make_shared<Node>();
+   node->right = make_shared<Node>();
+
+   minimalTree(list, low, mid - 1, node->left); //left
+   minimalTree(list, mid + 1, high, node->right); //right
 }
 
 /*
