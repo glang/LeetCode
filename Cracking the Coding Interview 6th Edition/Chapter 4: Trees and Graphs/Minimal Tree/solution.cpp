@@ -1,29 +1,51 @@
-void minimalTree(const vector<int>& list, int low, int high, shared_ptr<Node> node) {
+#include <vector>
+#include <iostream>
+#include <memory>
+
+using namespace std;
+
+struct Node {
+	int data;
+	shared_ptr<Node> left, right;
+
+	Node(int val) : data(val) {};
+};
+
+shared_ptr<Node> minimalTree(const vector<int>& list, int low, int high) {
 	if (high < low || high > list.size() - 1 || low < 0) {
-      return;
+      return 0;
    }
 
    int mid = low + (high - low) / 2;
-	node->data = list.at(mid);
-   node->left = make_shared<Node>();
-   node->right = make_shared<Node>();
+	auto newNode = make_shared<Node>(list.at(mid));
 
-   minimalTree(list, low, mid - 1, node->left); //left
-   minimalTree(list, mid + 1, high, node->right); //right
+   newNode->left = minimalTree(list, low, mid - 1);
+   newNode->right = minimalTree(list, mid + 1, high);
+
+   return newNode;
 }
 
 /*
-     1 2 3 4 5 6 7 8
+      0 1 2 3 4 5 6 7
 
-             5
-        3         7
-      2    4   6     8
-    1
+             3
+        1         5
+     0     2   4     6
+                       7
+            
 */
 
-int main() {
-	auto root = make_shared<Node>();
-	const vector<int> list({1, 2, 3, 4, 5, 6, 7, 8});
+void print_pre(shared_ptr<Node> node) {
+	if (node != 0) {
+		cout << node->data << endl;
+		print_pre(node->left);
+		print_pre(node->right);
+	}
+}
 
-	minimalTree(list, 0, list.size() - 1, head);
+int main() {
+	const vector<int> list({0, 1, 2, 3, 4, 5, 6, 7});
+
+	auto root = minimalTree(list, 0, list.size() - 1);
+	print_pre(root);
 }
