@@ -13,7 +13,7 @@ struct Node {
 
 shared_ptr<Node> minimalTree(const vector<int>& list, int low, int high) {
 	if (high < low || high > list.size() - 1 || low < 0) {
-      return 0;
+      return nullptr;
    }
 
    int mid = low + (high - low) / 2;
@@ -36,7 +36,7 @@ shared_ptr<Node> minimalTree(const vector<int>& list, int low, int high) {
 */
 
 void print_pre(shared_ptr<Node> node) {
-	if (node != 0) {
+	if (node != nullptr) {
 		cout << node->data << endl;
 		print_pre(node->left);
 		print_pre(node->right);
