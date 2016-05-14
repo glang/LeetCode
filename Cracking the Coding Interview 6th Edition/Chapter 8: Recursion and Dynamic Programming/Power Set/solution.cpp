@@ -1,3 +1,44 @@
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+vector<vector<int>> powerSet(vector<int> origSet);
+void powerSet(vector<vector<int>>& allSets, int newItem);
+
+vector<vector<int>> powerSet(vector<int> origSet) {
+   vector<vector<int>> allSets({vector<int>()});
+
+   for (int setItem : origSet) {
+      powerSet(allSets, setItem);
+   }
+
+   return allSets;
+}
+
+void powerSet(vector<vector<int>>& allSets, int newItem) {
+   vector<vector<int>> copy(allSets);
+   
+   for (vector<int>& copySet : copy) {
+      copySet.push_back(newItem);
+   }
+
+   allSets.insert(allSets.end(), copy.begin(), copy.end());
+}
+
+int main() {
+   vector<int> origSet({1, 2, 3, 4});
+
+   vector<vector<int>> allSets = powerSet(origSet);
+
+   for (vector<int> singleSet : allSets) {
+      for (int setItem : singleSet) {
+         cout << setItem << " ";
+      }
+      cout << endl;
+   }
+}
+
 /*
 1 2 3
 
@@ -68,12 +109,5 @@
 ...
 */
 
-void powerSet(set<int> origSet) {
-	vector<set<int>> allSets{set<int>()};
-	powerSet(origSet, allSets, origSet.size(), 0);
-}
 
-void powerSet(set<int> origSet, set<set<int>> allSets, int count, int start) {
-	
-}
 
