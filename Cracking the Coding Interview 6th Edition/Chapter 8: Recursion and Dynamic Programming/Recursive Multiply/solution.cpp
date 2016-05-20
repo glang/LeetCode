@@ -23,7 +23,8 @@ pair<int, int> log2(int in) {
 		++log;
 	}
 
-	return pair<int, int>({log, (1 << log) - in});
+	return pair<int, int>(log, (1 << log) - in
+	);
 }
 
 int multiply(int A, int B) {
@@ -40,6 +41,33 @@ int multiply(int A, int B) {
 	}
 
 	return result;
+}
+
+/*
+
+2 * 3 = 6
+
+*/
+
+int multiplyRecurse(int A, int B) {
+	int max = std::max(A, B);
+	int min = std::min(A, B);
+
+	return multiplyRecurseHelper(min, max);
+}
+
+int multiplyRecurseHelper(int A, int B) {
+	if (A == 0) {
+		return 0;
+	} else if (A == 1) {
+		return B;
+	}
+
+	if (A % 2 == 1) {
+		return (multipleRecurseHelper((A - 1) << 1, B) >> 1) + B;
+	} else {
+		return multipleRecurseHelper(A << 1, B) >> 1;
+	}
 }
 
 int main() {
