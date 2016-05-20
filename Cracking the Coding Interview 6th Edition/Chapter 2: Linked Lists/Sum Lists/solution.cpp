@@ -2,6 +2,7 @@
 #include <forward_list>
 #include <string>
 #include <memory>
+#include <iostream>
 
 using namespace std;
 
@@ -79,12 +80,29 @@ void sumListsRecurse(list<sp> result, sp Anode, sp Bnode, int prevcarry) {
 
 //solution if order is switched, where 123 is 1 -> 2 -> 3
 
-list<int> sumListsReverse(forward_list<int> A, forward_list<int> B) {
-	string Astring(A.begin(), A.end()), Bstring(B.begin(), B.end());
+string listToStr(forward_list<int> &A) {
+	string res;
+
+	for (auto x : A) {
+		res += '0' + x;
+	}
+
+	return res;
+}
+
+forward_list<int> sumListsReverse(forward_list<int> A, forward_list<int> B) {
+	string Astring = listToStr(A), Bstring = listToStr(B);
 	int Anum = stoi(Astring), Bnum = stoi(Bstring);
 	int sum = Anum + Bnum;
-	string sumString = "" + sum;
-	return list<int>(sumString.begin(), sumString.end());
+	string sumString = "" + to_string(sum);
+	cout << sumString << endl;
+	forward_list<int> result;
+	
+	for (auto c = sumString.rbegin(); c != sumString.rend(); ++c) {
+		result.push_front(*c - '0');
+	}
+
+	return result;
 }
 
 /*
@@ -104,5 +122,9 @@ sum lists
 2 1
 */
 int main() {
-	
+	forward_list<int> sumList = sumListsReverse(forward_list<int>({1, 2, 3}), forward_list<int>({5, 6, 7}));
+
+	for (auto x : sumList) {
+		cout << x << endl;
+	}	
 }
