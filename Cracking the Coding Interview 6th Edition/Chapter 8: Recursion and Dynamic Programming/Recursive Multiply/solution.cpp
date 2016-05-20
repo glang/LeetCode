@@ -32,8 +32,6 @@ int multiply(int A, int B) {
 	int min = std::min(A, B);
 	pair<int, int> logDiff = log2(min);
 
-	cout << logDiff.first << " " << logDiff.second << endl;
-
 	int result = max << logDiff.first;
 
 	for (int i = 0; i < logDiff.second; ++i) {
@@ -49,6 +47,8 @@ int multiply(int A, int B) {
 
 */
 
+int multiplyRecurseHelper(int A, int B);
+
 int multiplyRecurse(int A, int B) {
 	int max = std::max(A, B);
 	int min = std::min(A, B);
@@ -63,13 +63,17 @@ int multiplyRecurseHelper(int A, int B) {
 		return B;
 	}
 
+	int newA = A >> 1;
+	int half = multiplyRecurseHelper(newA, B);
+	int twoHalves = half + half;
+
 	if (A % 2 == 1) {
-		return (multipleRecurseHelper((A - 1) << 1, B) >> 1) + B;
+		return twoHalves + B;
 	} else {
-		return multipleRecurseHelper(A << 1, B) >> 1;
+		return twoHalves;
 	}
 }
 
 int main() {
-	cout << multiply(11, 13) << endl;
+	cout << multiplyRecurse(11, 13) << endl;
 }
