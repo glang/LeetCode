@@ -58,14 +58,15 @@ void moveDisk(stack<char> &source, stack<char> &dest, stack<char> &holder, int n
 		return;
 	}
 
-	if (numDisks > 1) {
-		moveDisk(source, holder, dest, numDisks - 1);
-	}
+	//move n - 1 disks from source to holder
+	moveDisk(source, holder, dest, numDisks - 1);
 
+	//move the remaining disk in source to dest
 	char toMove = source.top();
 	source.pop();
 	dest.push(toMove);
 
+	//move the n-1 disks in holder to dest
 	moveDisk(holder, dest, source, numDisks - 1);
 }
 
