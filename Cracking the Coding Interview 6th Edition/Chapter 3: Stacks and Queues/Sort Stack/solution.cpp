@@ -49,19 +49,27 @@ void sortStack(stack<int>& stack) {
          } else {
             if (holder.empty() || holder.top() < top) {
                holder.push(top);
+               stack.pop();
             } else {
                holder.push(temp);
+               stack.pop();
                temp = top;
-
-               //inner sort
+               moveItems(holder, stack, temp);
             }
-               
-            stack.pop();
          }
       } else {
          holder.push(temp);
       }
    }
+
+   moveItems(holder, stack, INT_MIN);
+}
+
+void moveItems(stack<int> &source, stack<int> &dest, int compare) {
+	while (!source.isEmpty() && source.top() > compare) {
+		dest.push(source.top());
+		source.pop();
+	}
 }
 
 
