@@ -86,9 +86,9 @@ boolean has_loop(node* start) {
    Return visted;
 }
 
-   O
-  / \
- O _ O
+   O--O--O
+  /    \
+ O--O---O
 
 V-O-O-O-O-O-O-O-O
 \              /
@@ -98,4 +98,25 @@ S---O--O
      \ |
       \O
 
+bool BFS_has_loop(node *start) {
+  queue<node *> nodeq;
+  nodeq.push(start);
 
+  while (!nodeq.empty()) {
+    node *cur = nodeq.front();
+    nodeq.pop();
+    cur->visted = true;
+
+    for (int i = 0; i < cur->other_node_count; ++i) {
+      node *child = cur->other_nodes[i];
+      
+      if (child != cur && child.visited) {
+        return true;
+      }
+
+      nodeq.push(child);
+    }
+  }
+
+  return false;  
+}
