@@ -8,13 +8,21 @@
 */
 
 Node* successor(Node* node) {
-	if (node->parent == null) {
-	
-	}
-
-	if (node->parent->data < node->data) {
-
+	if (node->right != null) {
+		return findMin(node->right);
 	} else {
-
+		
 	}
+}
+
+Node* findMin(Node* node) {
+	Node* min = node;
+	Node* iter = node;
+
+	while (iter != null) {
+		min = iter;
+		iter = iter->left;
+	}
+
+	return min;
 }
