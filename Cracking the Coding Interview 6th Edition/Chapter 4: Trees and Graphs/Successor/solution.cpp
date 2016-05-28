@@ -12,9 +12,9 @@
 */
 
 Node* successor(Node* node) {
-   if (node->parent == nullptr && node->right == nullptr) {
-      return null;
-   }
+//   if (node->parent == nullptr && node->right == nullptr) {
+//      return null;
+//   }
 
 	if (node->right != null) {
 		return findMin(node->right);
