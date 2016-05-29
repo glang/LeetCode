@@ -12,10 +12,6 @@
 */
 
 Node* successor(Node* node) {
-//   if (node->parent == nullptr && node->right == nullptr) {
-//      return null;
-//   }
-
 	if (node->right != null) {
 		return findMin(node->right);
 	} else {
@@ -47,8 +43,12 @@ Node* findMin(Node* node) {
 Node* findGreaterUp(Node* node) {
    Node* iter = node;
 
-   while (iter->data < node->data || node->parent != nullptr) {
+   while (iter->data <= node->data || node->parent != nullptr) {
       iter = iter->parent;
+
+      if (iter == nullptr) {
+      	return nullptr;
+      }
    }
 
    return iter;
