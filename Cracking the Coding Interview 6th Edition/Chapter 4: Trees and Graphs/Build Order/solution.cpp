@@ -1,46 +1,59 @@
-vector<char> buildOrder(vector<char> projects, vector<pair<char, char>> dependencies) {
-    unordered_set<char> noDepend = independents(projects, dependencies);
+vector<char> buildOrder(set<char> projects, set<pair<char, char>> dependencies) {
+    set<char> noDepend = independents(projects, dependencies);
+    unordered_map<char, set<char>> dependMap = makeDependMap(dependencies);
 
     if (noDepend.empty()) {
         throw "error";
     }
 
     vector<char> buildOrder(noDepend.begin(), noDepend.end());
-    bool found = true;
     int remaining = dependencies.size() - noDepend.size();
     
-    while (found && remaining > 0) {
-        found = false;
+    while (remaining > 0) {
+        bool found = false;
         
-        for (pair<char, char> p : dependencies) {
-            if (noDepend.find(p.second) != noDepend.end()) {
+        for (auto &p : dependMap) {
+            if (include(noDepend.begin(), noDepend.end(), p.second.begin(), p.second.end()) {
                 found = true;
                 --remaining;
                 noDepend.insert(p.first);
                 buildOrder.push_back(p.first);
-                p.second = 0;
+                p.second = set<char>({0});
             }
+        }
+
+        if (!found) {
+            throw "error";
         }
     }
 
-    if (remaining > 0) {
-        throw "error";
-    } else {
-        return buildOrder;
-    }
+    return buildOrder;
 }
 
-unordered_set<char> independents(vector<char> &projects, vector<pair<char, char>>& dependencies) {
-    unordered_set<char> result;
-    vector<char> depends;
 
-    for (pair<char, char> p : dependencies) {
-        depends.push_back(p.first);
+set<char> independents(set<char> &projects, set<pair<char, char>>& dependencies) {
+    set<char> result;
+    set<char> depends;
+
+    for (auto const &p : dependencies) {
+        depends.insert(p.first);
     }
 
-    sort(projects.begin(), depends.end());
-    sort(depends.begin(), depends.end());
-    set_intersection(projects.begin(), projects.end(), depends.begin(), depends.end(), inserter(result.begin());
+    set_difference(projects.begin(), projects.end(), depends.begin(), depends.end(), inserter(result, result.begin());
 
     return result;
+}
+
+unordered_map<char, set<char>> makeDependMap(set<pair<char, char>>& dependencies) {
+    unordered_map<char, set<char>> map;
+
+    for (auto &p : dependencies) {
+        if (map.find(p.first) == map.end()) {
+            map[p.first] = p.second;
+        } else {
+            map[p.first].insert(p.second);
+        }
+    }
+
+    return map;
 }
