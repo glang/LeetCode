@@ -1,11 +1,6 @@
 vector<char> buildOrder(set<char> projects, set<pair<char, char>> dependencies) {
     set<char> noDepend = independents(projects, dependencies);
     unordered_map<char, set<char>> dependMap = makeDependMap(dependencies);
-
-    if (noDepend.empty()) {
-        throw "error";
-    }
-
     vector<char> buildOrder(noDepend.begin(), noDepend.end());
     int remaining = dependencies.size() - noDepend.size();
     
