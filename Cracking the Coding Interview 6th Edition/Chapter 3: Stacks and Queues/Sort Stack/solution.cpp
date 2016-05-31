@@ -1,5 +1,7 @@
 /*
-   sort a stack such that the smallest element is on top. Can use a temp stack.
+sort a stack such that the smallest element is on top. Can use a temp stack.
+
+make the second stack sorted in reverse, then push all elements back to original stack:
 
 5 4 9 3    6
 
@@ -25,11 +27,35 @@
            5          
 3 4 6 9
 --
-9 6         5          
+9 6        5          
 3 4 
 --
 
-make the second stack sorted in reverse, then push all elements back to original stack
+Another approach (insertion sort?):
+5 4 9 3    6
+
+---
+5 4 9      3
+6
+---
+5 4 9 6 3
+
+---
+5 4 9 6
+3
+---
+5          4 
+3 6 9
+---
+5 9 6      4 
+3
+---
+5 9 6 4 3
+
+---
+.
+.
+.
 
 */
 

@@ -19,22 +19,17 @@ Node* successor(Node* node) {
 
       if (up == nullptr) {
          return nullptr;
-      } else if (up->right == nullptr) {
-         return up;
       } else {
-         Node* minNode = findMin(up->right);
-         return minNode->data < up->data ? minNode : up;      
+         return up;   
       }
 	}
 }
 
 Node* findMin(Node* node) {
 	Node* min = node;
-	Node* iter = node;
 
-	while (iter != nullptr) {
-		min = iter;
-		iter = iter->left;
+	while (min != nullptr) {
+		min = min->left;
 	}
 
 	return min;
@@ -43,12 +38,8 @@ Node* findMin(Node* node) {
 Node* findGreaterUp(Node* node) {
    Node* iter = node;
 
-   while (iter->data <= node->data || node->parent != nullptr) {
+   while (iter != null && iter->data < node->data) {
       iter = iter->parent;
-
-      if (iter == nullptr) {
-      	return nullptr;
-      }
    }
 
    return iter;
