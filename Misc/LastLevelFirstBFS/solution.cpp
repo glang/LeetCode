@@ -20,7 +20,7 @@ void addLevels(Node *node, int level) {
 }
 
 void printLevels(vector<vector<Node *>> levels) {
-   for (int i = levels.size() - 1; i >= 0; --1) {
+   for (int i = levels.size() - 1; i >= 0; --i) {
       for (auto const &item : levels[i]) {
          cout << item->message << endl;
       }
