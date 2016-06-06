@@ -3,28 +3,6 @@
 
 using namespace std;
 
-/*
-1 -> 2 -> 3 -> x
-
-3 -> 2 -> 1 -> x
-*/
-
-/*
-list<int> zipList(list<int> inList) {
-	list<int> outList;
-	for (auto i = inList.begin(); i < (inList.begin() + inList.size()) / 2; ++i) {
-		outList.push_back(*i);
-		outList.push_back(inList.begin() + (inList.size() - (i - inList.begin()) - 1)); 
-	}
-
-	if (inList.size() % 2 == 1) {
-		inList.push_back(inList.begin() + inList.size()/2 + 1);
-	} 
-
-	return outList;
-}
-*/
-
 struct Node {
 	int data;
 	Node *next;
@@ -58,12 +36,51 @@ void reverseLinkedListRecurse(Node *head) {
 	head->next = nullptr;
 }
 
+Node* zipList(Node* head) {
+	Node *slow = head, *fast = head;
+
+	while (fast && fast->next) {
+		fast = fast->next->next;
+		if (fast && fast->next) {
+		  slow = slow->next;
+		}
+	}
+
+	if (fast != nullptr) {
+		slow = slow->next;
+	}
+
+	Node *firstHalfIter = head;
+	Node *secHalfIter = reverseLinkedListIter(slow->next);
+	slow->next = nullptr;
+
+// 1 -- 2 -- 3 -- 4 -- x
+// 5 -- 6 -- 7 -- 8 -- x
+// 1 -- 2 -- 3 -- 4 -- 5 -- x
+/*
+1 -- 2 -- 3 -- x
+5 -- 4 -- x
+*/
+
+	while (secHalfIter) {
+		auto firstNext = firstHalfIter->next;
+		firstHalfIter->next = secHalfIter;
+		auto secNext = secHalfIter->next;
+		secHalfIter->next = firstNext;
+		firstHalfIter = firstNext;
+		secHalfIter = secNext;
+	}
+
+	return head;
+}
 
 int main() {
-	Node a, b, c;
+	Node a, b, c, d;
 	a = Node(1, &b);
 	b = Node(2, &c);
-	c = Node(3, nullptr);
+	c = Node(3, &d);
+//	c = Node(3, nullptr);
+	d = Node(4, nullptr);
 
 /*
 	Node *r = reverseLinkedListIter(&a);
@@ -74,6 +91,7 @@ int main() {
 	}
 */
 
+/*
 	reverseLinkedListRecurse(&a);
 	Node *r = &c;
 
@@ -81,4 +99,14 @@ int main() {
 		cout << r->data << endl;
 		r = r->next;
 	}
+*/
+
+	Node* newHead = zipList(&a);
+
+	while (newHead != nullptr) {
+		cout << newHead->data << endl;
+		newHead = newHead->next;
+	}
+
+	return 0;
 }
