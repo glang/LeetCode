@@ -24,17 +24,12 @@ Node* reverseLinkedListIter(Node *head) {
 	return prev;
 }
 
-void recurseHelper(Node *node) {
-	if (node->next != nullptr) {
-		recurseHelper(node->next);
-		node->next->next = node;
-	}
-}
+// 1 -- 2 -- 3 -- 4 -- x
+// 5 -- 6 -- 7 -- 8 -- x
 
-void reverseLinkedListRecurse(Node *head) {
-	recurseHelper(head);
-	head->next = nullptr;
-}
+// 1 -- 2 -- 3 -- 4 -- 5 -- x
+// 1 -- 2 -- 3 -- x
+// 5 -- 4 -- x
 
 Node* zipList(Node* head) {
 	Node *slow = head, *fast = head;
@@ -53,14 +48,6 @@ Node* zipList(Node* head) {
 	Node *firstHalfIter = head;
 	Node *secHalfIter = reverseLinkedListIter(slow->next);
 	slow->next = nullptr;
-
-// 1 -- 2 -- 3 -- 4 -- x
-// 5 -- 6 -- 7 -- 8 -- x
-// 1 -- 2 -- 3 -- 4 -- 5 -- x
-/*
-1 -- 2 -- 3 -- x
-5 -- 4 -- x
-*/
 
 	while (secHalfIter) {
 		auto firstNext = firstHalfIter->next;
@@ -81,25 +68,6 @@ int main() {
 	c = Node(3, &d);
 //	c = Node(3, nullptr);
 	d = Node(4, nullptr);
-
-/*
-	Node *r = reverseLinkedListIter(&a);
-
-	while (r != nullptr) {
-		cout << r->data << endl;
-		r = r->next;
-	}
-*/
-
-/*
-	reverseLinkedListRecurse(&a);
-	Node *r = &c;
-
-	while (r != nullptr) {
-		cout << r->data << endl;
-		r = r->next;
-	}
-*/
 
 	Node* newHead = zipList(&a);
 
