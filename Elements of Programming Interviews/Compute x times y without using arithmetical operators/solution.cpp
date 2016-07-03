@@ -34,27 +34,23 @@ unsigned mult(unsigned a, unsigned b) {
 }
 
 unsigned add(unsigned a, unsigned b) {
-	unsigned short carry = 0;
-	int count = 0;
-	unsigned result = 0;
+	unsigned tempa = a, tempb = b, k = 1, carry = 0, result = 0;
 
-	while (a || b || carry) {
-		short abit = a & 1;
-		short bbit = b & 1;
-
-		result |= ((abit ^ bbit ^ carry) << count);
-
-		carry = (abit && bbit) || (carry && (abit || bbit));
-		a >>= 1;
-		b >>= 1;
-		++count;
-		cout << "adding" << endl;
+	while (tempa || tempb || carry) {
+		unsigned ak = a & k, bk = b & k;
+		result |= (ak ^ bk ^ carry);
+		carry = (ak & bk) | (carry & (ak | bk));
+		tempa >>= 1;
+		tempb >>= 1;
+		k <<= 1;
+		carry <<= 1;
 	}
 
 	return result;
 }
 
 int main() {
+	cout << add(3U, 3U) << endl;
 	cout << mult(3U, 3U) << endl;
 	return 0;
 }
