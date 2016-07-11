@@ -13,12 +13,22 @@ bool isPalindrome(int num) {
 	}
 
 	int numDigits = floor(log10(num)) + 1;
-	int msb_spot = numDigits;
+	int msb_mask = pow(10, numDigits - 1);
+
+	for (int i = 0; i < numDigits/2; ++i) {
+		if (num / msb_mask != num % 10) {
+			return false;
+		}
+
+		num %= msb_mask;
+		num /= 10;
+		msb_spot /= 100;
+	}
 
 	return true;
 }
 
 int main() {
-	isPalindrome(121);
+	cout << isPalindrome(121) << endl;
 	return 0;
 }
