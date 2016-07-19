@@ -27,7 +27,7 @@ int main() {
 	vector<int> A{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 	EvenOdd(A);
 
-	for (int x : A) {
+	for (auto const x : A) {
 		cout << x << " ";
 	}
 
