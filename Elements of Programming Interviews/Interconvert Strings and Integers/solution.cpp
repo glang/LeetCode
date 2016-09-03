@@ -23,6 +23,10 @@ string my_itoa(int A) {
 		A = -A;
 	}
 
+	if (A == 0) {
+		return "0";
+	}
+
 	while (A) {
 		res += '0' + (A % 10);
 		A /= 10;
