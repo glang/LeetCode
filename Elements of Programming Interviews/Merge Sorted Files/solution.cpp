@@ -2,12 +2,17 @@
 Array version
 */
 
+#include <vector>
+#include <queue>
+
+using namespace std;
+
 struct item {
 	int data;
 	int arraysIndex;
 	int arrayIndex;
 
-	bool operator>(item other) {
+	bool operator>(item other) const {
 		data > other.data;
 	}
 };
@@ -17,7 +22,7 @@ vector<int> mergeSortedArrays(vector<vector<int>> arrays) {
 	priority_queue<item, vector<item>, greater<item>> heap;
 
 	for (int i = 0; i < arrays.size(); ++i) {
-		heap.emplace(item{array[i][0], i, 0});
+		heap.emplace(item{arrays[i][0], i, 0});
 	}
 
 	while (!heap.empty()) {
@@ -31,3 +36,5 @@ vector<int> mergeSortedArrays(vector<vector<int>> arrays) {
 
 	return result;
 }
+
+int main() {}
