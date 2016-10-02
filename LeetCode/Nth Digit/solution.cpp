@@ -1,25 +1,27 @@
+/*
+0     0      9*0
+9     9      9*1
+99    90    90*2
+999   900  900*3
+*/
+
 class Solution {
 public:
     int findNthDigit(int n) {
-        int count = 0;
-        for (int i = 1; i <= n; ++i) {
-            int length = log10(i) + 1;
+        unsigned long long num = 0, totalDigits = 0, currentDigits = 1, counter = 9;
         
-            if (n > count + length) {
-                count += length;
-            } else {
-                /*
-                get 2nd digit
-                size == 7
-                div by 10 ^ size - diff
-                mod by 10
-                4738765
-                */
-                int diff = n - count;
-                return i / (int) pow(10, length - diff) % 10;
-            }
+        while (totalDigits + counter * currentDigits < n) {
+            num += counter;
+            totalDigits += counter * currentDigits;
+            ++currentDigits;
+            counter *= 10;
         }
         
-        return 0;
+        num = max(1ull, num);
+        for (totalDigits = max(1ull, totalDigits); totalDigits < n; totalDigits+=currentDigits) {
+            ++num;
+        }
+        
+        return to_string(num)[currentDigits - (totalDigits - n) - 1] - '0';
     }
 };
