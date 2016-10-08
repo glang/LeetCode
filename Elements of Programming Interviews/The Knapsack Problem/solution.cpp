@@ -33,13 +33,13 @@ int maxSetValMain(vector<item>& items, int weight) {
 }
 
 int maxSetVal(vector<item>& items, int s, int weight, vector<vector<int>>& grid) {
-	if (weight <= 0 || s == items.size())
+	if (s == items.size())
 		return 0;
 
 	if (grid[s][weight] == -1) {
-	   grid[s][weight] = max(items[s].value + 
-	    maxSetVal(items, s + 1, weight - items[s].weight, grid), 
-	     maxSetVal(items, s + 1, weight, grid));
+	   int withCurrent = items[s].weight > weight ? 0 : items[s].value + 
+	    maxSetVal(items, s + 1, weight - items[s].weight, grid);
+	   grid[s][weight] = max(withCurrent, maxSetVal(items, s + 1, weight, grid));
 	}
 
 	return grid[s][weight];
@@ -50,8 +50,9 @@ int main() {
                         {40, 65},  {70, 150}, {85, 275}, {25, 155},
                         {30, 120}, {65, 320}, {75, 75},  {10, 40},
                         {95, 200}, {50, 100}, {40, 220}, {10, 99}};
-
-  cout << maxSetValMain(items, 130) << endl;	
+  vector<item> items2 = {{5, 60}, {3, 50}, {4, 70}, {2, 30}};
+  cout << maxSetValMain(items, 130) << endl << endl;	
+  cout << maxSetValMain(items2, 5) << endl;	
 
   return 0;
 }
