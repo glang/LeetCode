@@ -39,9 +39,28 @@ class LinkedList:
 				return
 			iter = iter.next
 
+	def reverse_iterative(self):
+		iter = self.head
+		while iter.next is not None:
+			old_head = self.head
+			self.head = iter.next
+			iter.next = iter.next.next
+			self.head.next = old_head
+
+	def reverse_recursive(self, node):
+		if node.next is None:
+			self.head = node
+		else:
+			self.reverse_recursive(node.next)
+			node.next.next = node
+			node.next = None
+
 ll = LinkedList()
 ll.append(1)
 ll.append(2)
 ll.append(3)
-ll.remove(3)
+ll.append(4)
+ll.append(5)
+ll.print()
+ll.reverse_recursive(ll.head)
 ll.print()
