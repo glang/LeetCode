@@ -7,12 +7,12 @@ def stringCompression(s):
          count += 1
       else:
          c.append(s[i - 1])
-         c.append(count)
+         c.append(str(count))
          count = 1
 
    c.append(s[i - 1])
-   c.append(count)
-
+   c.append(str(count))
    return ''.join(c) if len(c) < len(s) else s
 
 print(stringCompression('aaaaabbbbbcdeef'))
+print(stringCompression('aabc'))
