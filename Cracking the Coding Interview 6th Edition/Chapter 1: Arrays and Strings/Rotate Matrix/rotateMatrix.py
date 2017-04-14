@@ -1,9 +1,10 @@
 def rotateMatrix(m):
    for l in range(len(m)//2):
+      back = len(m) - 1 - l
       for i in range(len(m) - 1 - l * 2):
-         m[l][l + i], m[l + i][len(m) - 1 - l] = m[l + i][len(m) - 1 - l], m[l][l + i]
-         m[l][l + i], m[len(m) - 1 - l][len(m) - 1 - l - i] = m[len(m) - 1 - l][len(m) - 1 - l - i], m[l][l + i]
-         m[l][l + i], m[len(m) - 1 - l - i][l] = m[len(m) - 1 - l - i][l], m[l][l + i]
+         m[l][l + i], m[l + i][back] = m[l + i][back], m[l][l + i]
+         m[l][l + i], m[back][back - i] = m[back][back - i], m[l][l + i]
+         m[l][l + i], m[back - i][l] = m[back - i][l], m[l][l + i]
 
 
 m1 = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15]]
