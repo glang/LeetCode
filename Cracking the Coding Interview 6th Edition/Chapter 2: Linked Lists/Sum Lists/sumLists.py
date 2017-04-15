@@ -1,9 +1,14 @@
+class Node:
+   def __init__(self, data, next = None):
+      self.data = data
+      self.next = next
+
 def sumListsBackwards(n1, n2):
    carry = 0
    head = None
    iter = None
    while n1 is not None or n2 is not None or carry == 1:
-      sum = n1.data if n1 is not None + n2.data if n2 is not None + carry
+      sum = (n1.data if n1 is not None else 0) + (n2.data if n2 is not None else 0) + carry
 
       if sum > 9:
          carry = 1
@@ -49,8 +54,8 @@ def sumListsForwardsRecursive(n1, n2):
    result = sumListsForwardsRecursiveHelper(n1, n2)
 
    if result[1] == 1:
-      return Node(1, list[2])
-   return list[2] 
+      return Node(1, Node(list[0], list[2]))
+   return Node(list[0], list[2]) 
 
 def sumListsForwardsRecursiveHelper(n1, n2):
    if n1 is None:
@@ -62,7 +67,7 @@ def sumListsForwardsRecursiveHelper(n1, n2):
    if sum > 9:
       carry = 1
       sum -= 10
-   else
+   else:
       carry = 0
 
    digitNode = Node(sum, list[2])
