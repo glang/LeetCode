@@ -7,16 +7,20 @@ class GraphNode:
 		self.visited = False
 
 def hasPathBFS(n1, n2):
-	q = queue.Queue()
-	q.put(n1)
+	if n1 is n2:
+		return True
 
+	q = queue.Queue()
+	n1.visited = True
+	q.put(n1)
+	
 	while q.qsize() > 0:
 		cur = q.get()
-		cur.visited = True
 		for x in cur.neighbors:
-			if x is n2:
-				return True
 			if not x.visited:
+				if x is n2:
+					return True
+				x.visited = True
 				q.put(x)
 
 	return False
