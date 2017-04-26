@@ -12,7 +12,8 @@ def helper(l, parent, start, end):
 
 		if parent.data > new_node.data:
 			parent.left = new_node
-			helper(l, new_node, start, center_idx - 1)
 		else:
 			parent.right = new_node
-			helper(l, new_node, center_idx + 1, end)
+			
+		helper(l, new_node, start, center_idx - 1)
+		helper(l, new_node, center_idx + 1, end)
