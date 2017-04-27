@@ -14,17 +14,20 @@ def helper(node):
 		return False
 	return True
 
-def valid_BST_other(parent, cur):
+def valid_BST_2(root):
+	return helper2(None, root):
+
+def helper2(parent, cur):
 	if cur is None:
 		return True
 	if cur.left is not None:
 		if cur.left.data > cur.data:
 			return False
-		if parent is not None and cur is parent.right and cur.left.data < parent.data:
+		if parent is not None and cur is parent.right and cur.left.data <= parent.data:
 			return False
 	if cur.right is not None:
 		if cur.right.data < cur.data:
 			return False
 		if parent is not None and cur is parent.left and cur.right.data > parent.data:
 			return False
-	return valid_BST_other(cur, cur.left) and valid_BST_other(cur, cur.right)
+	return helper2(cur, cur.left) and helper2(cur, cur.right)
