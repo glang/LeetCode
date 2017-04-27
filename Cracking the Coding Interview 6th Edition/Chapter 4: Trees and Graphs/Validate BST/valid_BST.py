@@ -9,6 +9,7 @@ def helper(node):
 		return false
 	if last_val is not None and last_val > node.data:
 		return false
+	last_val = node.data
 	if not helper(node.right):
 		return false
 	return True
